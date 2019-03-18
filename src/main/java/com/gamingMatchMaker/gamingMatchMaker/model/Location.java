@@ -1,0 +1,101 @@
+package com.gamingMatchMaker.gamingMatchMaker.model;
+
+import org.springframework.data.annotation.Id;
+
+import javax.persistence.*;
+import java.util.UUID;
+
+
+@Table(name="locations")
+public class Location {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id", columnDefinition = "BINARY(16)")
+    private UUID id = null;
+
+
+    private String zip;
+    private String city;
+    private String state;
+    private float lat;
+    private float lng;
+    private String locationString;
+
+    public Location() {
+    }
+
+    public Location(String zip, String city, String state, float lat, float lng, String locationString) {
+        this.zip = zip;
+        this.city = city;
+        this.state = state;
+        this.lat = lat;
+        this.lng = lng;
+        this.locationString = locationString;
+    }
+
+    public Location(Location original) {
+        this.zip = original.zip;
+        this.city = original.city;
+        this.state = original.state;
+        this.lat = original.lat;
+        this.lng = original.lng;
+        this.locationString = original.locationString;
+    }
+
+    public UUID getId() {
+        return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
+    }
+
+    public String getZip() {
+        return zip;
+    }
+
+    public void setZip(String zip) {
+        this.zip = zip;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
+    public float getLat() {
+        return lat;
+    }
+
+    public void setLat(float lat) {
+        this.lat = lat;
+    }
+
+    public float getLng() {
+        return lng;
+    }
+
+    public void setLng(float lng) {
+        this.lng = lng;
+    }
+
+    public String getLocationString() {
+        return locationString;
+    }
+
+    public void setLocationString(String locationString) {
+        this.locationString = locationString;
+    }
+}
