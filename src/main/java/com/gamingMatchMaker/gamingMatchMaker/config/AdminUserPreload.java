@@ -1,4 +1,4 @@
-package com.gamingMatchMaker.gamingMatchMaker.confiq;
+package com.gamingMatchMaker.gamingMatchMaker.config;
 
 import com.gamingMatchMaker.gamingMatchMaker.dao.LocationRepository;
 import com.gamingMatchMaker.gamingMatchMaker.dao.UserRepository;
@@ -36,7 +36,7 @@ public class AdminUserPreload implements ApplicationRunner {
         if(createAdmin!=null && "true".equals(createAdmin.trim().toLowerCase())) {
 
             // defaults for the "bootstrapping admin"
-            String email = "admin@admin.com";
+            String email = "admin";
             String password = "password";
 
             // Allow overriding the defaults if set in config files
@@ -49,13 +49,13 @@ public class AdminUserPreload implements ApplicationRunner {
             }
 
             // first check if the admin user is in the database
-            if(!userDao.findByEmail("admin").isPresent()) {
+            if(!userDao.findByEmail("admin@aaa.com").isPresent()) {
                 // create location for admin user
                 Location adminLocation = new Location();
                 adminLocation = locDao.save(adminLocation);
                 // create the admin user
                 UserRec adminUserRec = new UserRec(
-                        "admin@aaa.com", "admin", null,"password",
+                        "admin@aaa.com", "admin", "admin","password",
                         99, true, 1, adminLocation);
                 adminUserRec.setPassword(passwordEncoder.encode(password));
                 userDao.save(adminUserRec);

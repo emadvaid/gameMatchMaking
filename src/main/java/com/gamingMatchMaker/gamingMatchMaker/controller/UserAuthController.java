@@ -15,10 +15,11 @@ public class UserAuthController {
     @Autowired
     private UserAuthService service;
 
-    @CrossOrigin
     @PostMapping("/authorizeUser")
     public ResponseEntity<AuthUserResponse> authUser(@RequestBody AuthUserRequest request) {
-        UserAuthRecPair authResults = service.authByEmailPassword(request.getEmail(), request.getPassword());
+        String email = request.getEmail();
+        String password = request.getPassword();
+        UserAuthRecPair authResults = service.authByEmailPassword(email, password);
 
         HttpHeaders headers = new HttpHeaders();
 

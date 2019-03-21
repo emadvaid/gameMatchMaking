@@ -11,19 +11,19 @@ public class UserAuthentication {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID accessToken;
 
-    private UUID userId;
+    private int userId;
     private int user_type;
 
     public UserAuthentication() {
     }
 
-    public UserAuthentication(UUID userId, int user_type) {
+    public UserAuthentication(int userId, int user_type) {
         this.userId = userId;
         this.user_type = user_type;
         this.accessToken = null;
     }
 
-    public UserAuthentication(UUID userId, UUID accessToken, int user_type) {
+    public UserAuthentication(int userId, UUID accessToken, int user_type) {
         this.userId = userId;
         this.accessToken = accessToken;
         this.user_type = user_type;
@@ -35,11 +35,11 @@ public class UserAuthentication {
         this.user_type = authCredentials.getUser_type();
     }
 
-    public UUID getUserId() {
+    public int getUserId() {
         return userId;
     }
 
-    public void setUserId(UUID userId) {
+    public void setUserId(int userId) {
         this.userId = userId;
     }
 

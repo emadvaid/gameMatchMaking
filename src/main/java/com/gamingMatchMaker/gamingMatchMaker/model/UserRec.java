@@ -1,7 +1,6 @@
 package com.gamingMatchMaker.gamingMatchMaker.model;
 
 import javax.persistence.*;
-import java.util.List;
 import java.util.UUID;
 
 
@@ -11,8 +10,8 @@ public class UserRec {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id", columnDefinition = "int(11)")
-    private UUID id = null;
+    @Column(name = "id", columnDefinition = "Int(11)")
+    private int id;
 
 
     @Column(unique = true, nullable = false)
@@ -23,6 +22,10 @@ public class UserRec {
     private int age;
     private boolean is_active;
     private int user_type;
+
+    @ManyToOne
+    @JoinColumn(name="location_id", nullable = false)
+    private Location location;
 
     public UserRec() {
     }
@@ -35,11 +38,12 @@ public class UserRec {
         this.age = original.age;
         this.is_active = original.is_active;
         this.user_type = original.user_type;
+        this.location = new Location(original.location);
     }
 
     public UserRec(String email, String first_name, String last_name,
                    String password, int age, boolean is_active,
-                   int user_type) {
+                   int user_type, Location location) {
         this.email = email;
         this.first_name = first_name;
         this.last_name = last_name;
@@ -47,13 +51,14 @@ public class UserRec {
         this.age = age;
         this.is_active = is_active;
         this.user_type = user_type;
+        this.location = location;
     }
 
-    public UUID getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(UUID id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -111,5 +116,13 @@ public class UserRec {
 
     public void setUser_type(int user_type) {
         this.user_type = user_type;
+    }
+
+    public Location getLocation() {
+        return location;
+    }
+
+    public void setLocation(Location location) {
+        this.location = location;
     }
 }

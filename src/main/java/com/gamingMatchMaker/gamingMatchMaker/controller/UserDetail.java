@@ -2,10 +2,8 @@ package com.gamingMatchMaker.gamingMatchMaker.controller;
 
 import com.gamingMatchMaker.gamingMatchMaker.model.UserRec;
 
-import java.util.UUID;
-
 public class UserDetail {
-    private final UUID id;
+    private final int id;
     private String email;
     private String first_name;
     private String last_name;
@@ -13,11 +11,11 @@ public class UserDetail {
     private boolean is_active;
     private int user_type;
 
-    public UserDetail() {
-        this.id = null;
+    public UserDetail(int id) {
+        this.id = id;
     }
 
-    public UserDetail(UUID id, String email, String first_name, String last_name,
+    public UserDetail(int id, String email, String first_name, String last_name,
                       int age, boolean is_active, int user_type
     ) {
         this.id = id;
@@ -49,7 +47,7 @@ public class UserDetail {
         this.user_type = orig.getUser_type();
     }
 
-    public UUID getId() {
+    public int getId() {
         return id;
     }
 

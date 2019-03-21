@@ -1,18 +1,18 @@
 package com.gamingMatchMaker.gamingMatchMaker.model;
 
-import org.springframework.data.annotation.Id;
-
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
 
-
+@Entity
 @Table(name="locations")
 public class Location {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id", columnDefinition = "BINARY(16)")
-    private UUID id = null;
+    @Column(name = "id", columnDefinition = "int(11)")
+    private int id;
 
 
     private String zip;
@@ -22,7 +22,11 @@ public class Location {
     private float lng;
     private String locationString;
 
+    @OneToMany(mappedBy="location", cascade=CascadeType.DETACH)
+    private final Set<UserRec> userRecSet;
+
     public Location() {
+        this.userRecSet = new HashSet<>();
     }
 
     public Location(String zip, String city, String state, float lat, float lng, String locationString) {
@@ -32,6 +36,7 @@ public class Location {
         this.lat = lat;
         this.lng = lng;
         this.locationString = locationString;
+        this.userRecSet = new HashSet<>();
     }
 
     public Location(Location original) {
@@ -41,13 +46,14 @@ public class Location {
         this.lat = original.lat;
         this.lng = original.lng;
         this.locationString = original.locationString;
+        this.userRecSet = new HashSet<>();
     }
 
-    public UUID getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(UUID id) {
+    public void setId(int id) {
         this.id = id;
     }
 

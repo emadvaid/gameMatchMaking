@@ -5,6 +5,7 @@ import com.gamingMatchMaker.gamingMatchMaker.dao.UserRepository;
 import com.gamingMatchMaker.gamingMatchMaker.model.UserAuthentication;
 import com.gamingMatchMaker.gamingMatchMaker.model.UserRec;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -15,13 +16,16 @@ public class UserAuthServiceImpl implements UserAuthService{
 
     private final UserRepository userDao;
     private final UserAuthenticationRepository authDao;
+    private final PasswordEncoder passwordEncoder;
 
     @Autowired
     public UserAuthServiceImpl(UserRepository userDao,
-                               UserAuthenticationRepository authDao)
+                               UserAuthenticationRepository authDao,
+                               PasswordEncoder passwordEncoder)
     {
        this.userDao = userDao;
        this.authDao = authDao;
+       this.passwordEncoder = passwordEncoder;
     }
 
     @Override
@@ -43,8 +47,8 @@ public class UserAuthServiceImpl implements UserAuthService{
         UserRec userRec = userOpt.get();
 
         // fail if the passwords don't match
-        // TODO fix this!!
-        if(!password.matches(userRec.getPassword())){
+
+        if(!passwordEncoder.matches(password, userRec.getPassword())){
             throw new UserAuthenticationException("Password not match for userRec: username = " + email);
         }
 
