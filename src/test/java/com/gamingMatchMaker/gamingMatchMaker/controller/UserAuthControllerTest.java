@@ -71,9 +71,5 @@ public class UserAuthControllerTest {
         mockMvc.perform(requestBuilder)
                 .andExpect(status().isOk())
                 .andExpect(content().json(mockResponseJSON));
-
-
     }
-
-
 }
