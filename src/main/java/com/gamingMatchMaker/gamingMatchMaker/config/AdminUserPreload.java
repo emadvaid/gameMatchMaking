@@ -11,6 +11,8 @@ import org.springframework.boot.ApplicationRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
+import java.util.Optional;
+
 @Component
 public class AdminUserPreload implements ApplicationRunner {
     private final UserRepository userDao;
@@ -51,12 +53,15 @@ public class AdminUserPreload implements ApplicationRunner {
             // first check if the admin user is in the database
             if(!userDao.findByEmail("admin@aaa.com").isPresent()) {
                 // create location for admin user
-                Location adminLocation = new Location();
-                adminLocation = locDao.save(adminLocation);
+                Optional<Location> adminLocation = locDao.findByZip("30047");
+
+                if(!adminLocation.isPresent()) {
+                    throw new IllegalStateException("Cannot create admin user");
+                }
                 // create the admin user
                 UserRec adminUserRec = new UserRec(
                         "admin@aaa.com", "admin", "admin","password",
-                        99, true, 1, adminLocation);
+                        99, true, 1, adminLocation.get());
                 adminUserRec.setPassword(passwordEncoder.encode(password));
                 userDao.save(adminUserRec);
             }

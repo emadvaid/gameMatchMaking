@@ -9,26 +9,25 @@ import com.gamingMatchMaker.gamingMatchMaker.model.Location;
 
 @Service
 public class LocationServiceImpl implements LocationService {
-	private final LocationRepository atlas;
-	
-	@Autowired
-	public LocationServiceImpl(LocationRepository places) {
-		atlas = places;
-	}
+    private final LocationRepository atlas;
 
-	/**
-	 * 
-	 * @param 
-	 */
-	@Override
+    @Autowired
+    public LocationServiceImpl(LocationRepository atlas) {
+        this.atlas = atlas;
+    }
 
-	public Location GetLocation(String zipCode) {
-		Optional<Location> place = atlas.findByZip(zipCode);
-		
-		if(place.isPresent()) return place.get();
-		else throw new BadZipException();
-	}
-	
-	
+    /**
+     *
+     * @param
+     */
+    @Override
+    public Location GetLocation(String zipCode) {
+        Optional<Location> place = atlas.findByZip(zipCode);
+
+        if(place.isPresent()) return place.get();
+        else throw new BadZipException();
+    }
+
+
 
 }

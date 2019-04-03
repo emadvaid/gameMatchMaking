@@ -1,22 +1,26 @@
-package com.gamingMatchMaker.gamingMatchMaker.controller;
+package com.gamingMatchMaker.gamingMatchMaker.controller.authorization;
 
+import com.gamingMatchMaker.gamingMatchMaker.model.Location;
 import com.gamingMatchMaker.gamingMatchMaker.model.UserRec;
 
+import java.util.Optional;
+
 public class UserDetail {
-    private final int id;
+    private int id;
     private String email;
     private String first_name;
     private String last_name;
     private int age;
     private boolean is_active;
     private int user_type;
+    private Location location;
 
     public UserDetail(int id) {
         this.id = id;
     }
 
     public UserDetail(int id, String email, String first_name, String last_name,
-                      int age, boolean is_active, int user_type
+                      int age, boolean is_active, int user_type, Location location
     ) {
         this.id = id;
         this.email = email;
@@ -25,16 +29,7 @@ public class UserDetail {
         this.age = age;
         this.is_active = is_active;
         this.user_type = user_type;
-    }
-
-    public UserDetail(UserDetail orig) {
-        this.id = orig.id;
-        this.email = orig.email;
-        this.first_name = orig.first_name;
-        this.last_name = orig.last_name;
-        this.age = orig.age;
-        this.is_active = orig.is_active;
-        this.user_type = orig.user_type;
+        this.location = location;
     }
 
     public UserDetail(UserRec orig) {
@@ -45,6 +40,18 @@ public class UserDetail {
         this.age = orig.getAge();
         this.is_active = orig.isIs_active();
         this.user_type = orig.getUser_type();
+        this.location = orig.getLocation();
+    }
+
+    public UserDetail(UserDetail orig) {
+        this.id = orig.getId();
+        this.email = orig.getEmail();
+        this.first_name = orig.getFirst_name();
+        this.last_name = orig.getLast_name();
+        this.age = orig.getAge();
+        this.is_active = orig.isIs_active();
+        this.user_type = orig.getUser_type();
+        this.location = orig.getLocation();
     }
 
     public int getId() {
@@ -95,7 +102,18 @@ public class UserDetail {
         return user_type;
     }
 
+    public Location getLocation() {
+        return location;
+    }
     public void setUser_type(int user_type) {
         this.user_type = user_type;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setLocation(Location location) {
+        this.location = location;
     }
 }

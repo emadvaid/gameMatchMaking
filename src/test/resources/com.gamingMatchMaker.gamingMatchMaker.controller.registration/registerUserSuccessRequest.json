@@ -1,0 +1,19 @@
+{
+  "password": "password1",
+  "userDetail": {
+    "email": "testJon@test.com",
+    "first_name": "Jon",
+    "last_name": "Doe",
+    "age": "37",
+    "is_active": "true",
+    "user_type": 1,
+    "location": {
+      "zip": "99004",
+      "city": "testCiy",
+      "state": "NY",
+      "lat": 20.05,
+      "lng": 15.50,
+      "locationString": "Jons Test Location"
+    }
+  }
+}

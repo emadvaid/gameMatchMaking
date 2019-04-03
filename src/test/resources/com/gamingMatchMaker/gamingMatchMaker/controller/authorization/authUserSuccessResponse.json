@@ -1,0 +1,16 @@
+{
+  "auth":{
+    "accessToken":"ee97d265-4828-4aa5-8b7c-1ab41b03b405",
+    "userId":1,
+    "user_type":1
+  },
+  "detail":{
+    "id":0,
+    "email":"test@aaa.com",
+    "first_name":"test",
+    "last_name":"test",
+    "age":1,
+    "is_active":true,
+    "user_type":2
+  }
+}

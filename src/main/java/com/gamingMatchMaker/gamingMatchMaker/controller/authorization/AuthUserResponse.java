@@ -1,4 +1,4 @@
-package com.gamingMatchMaker.gamingMatchMaker.controller;
+package com.gamingMatchMaker.gamingMatchMaker.controller.authorization;
 
 import com.gamingMatchMaker.gamingMatchMaker.model.UserAuthentication;
 
