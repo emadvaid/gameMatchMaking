@@ -6,6 +6,7 @@ import com.gamingMatchMaker.gamingMatchMaker.controller.registration.CreateRegis
 import com.gamingMatchMaker.gamingMatchMaker.model.Location;
 import com.gamingMatchMaker.gamingMatchMaker.model.UserAuthentication;
 import com.gamingMatchMaker.gamingMatchMaker.model.UserRec;
+import com.gamingMatchMaker.gamingMatchMaker.service.LocationService.LocationService;
 import com.gamingMatchMaker.gamingMatchMaker.service.authService.UserAuthRecPair;
 import com.gamingMatchMaker.gamingMatchMaker.service.authService.UserAuthService;
 import com.gamingMatchMaker.gamingMatchMaker.service.registrationService.RegistrationService;
@@ -19,18 +20,22 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
+import static org.mockito.ArgumentMatchers.*;
+import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.when;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @AutoConfigureMockMvc
-public class ControllerTest {
+public abstract class ControllerTest {
 
     protected static final String TEST_USERNAME = "user1";
     protected static final String TEST_PASSWORD = "pass1";
@@ -43,6 +48,9 @@ public class ControllerTest {
 
     @MockBean
     private RegistrationService registrationService;
+
+    @MockBean
+    private LocationService locationService;
 
     @Before
     public void setupUserAuthService() {
@@ -66,8 +74,11 @@ public class ControllerTest {
     public void setupRegistrationService() {
         Location mockLocation = new Location("99004","testCiy","NY",
                 20.05f,15.50f,"Jon test location");
-        UserDetail mockUserDetail = new UserDetail(-1,"testJon#test.com","Jon","Test",37,true,1,mockLocation);
-        CreateRegistrationRequest request =  new CreateRegistrationRequest(mockUserDetail, "password1");
+        UserDetail mockUserDetail = new UserDetail(
+                -1,"testJon#test.com","Jon","Test",
+                37,true,1,mockLocation);
+        CreateRegistrationRequest request =
+                new CreateRegistrationRequest(mockUserDetail, "password1");
 
         mockUserDetail.getId();
 
@@ -77,17 +88,33 @@ public class ControllerTest {
         response.setId(43);
         response.setLocation(mockLocationRec);
 
-        when(registrationService.createRegistration(new UserRec(request.getUserDetail()), request.getPassword()))
-                .thenReturn(Optional.of(response));
+        when(this.locationService.GetLocation(eq(mockLocation.getZip()))).thenReturn(mockLocation);
+
+        when(registrationService.createRegistration(
+                new UserRec(new UserDetail(
+                        anyInt(),eq("testJon@test.com"), anyString(),anyString(),
+                        anyInt(),eq(true), anyInt(), eq(mockLocation))),
+                        eq(request.getPassword()))
+                )
+                .thenReturn(Optional.of(response)
+        );
     }
 
-    protected String readFileFromResources(String fileName) {
+    protected String readFileFromResources(Class c, String fileName) throws Exception {
         String result;
 
-        String pathName = this.getClass().getPackage().getName().replace('.', '/') + "/" + fileName;
+        if(c == null) {
+            throw new IllegalArgumentException("Class cannot be null");
+        }
+
+        String pathName = c.getPackage().getName().replace('.', '/') + "/" + fileName;
 
         InputStream inputStream =
                 this.getClass().getClassLoader().getResourceAsStream(pathName);
+
+        if(inputStream == null) {
+            throw new FileNotFoundException("No file found in classpath for " + pathName);
+        }
 
         result = new BufferedReader(new InputStreamReader(inputStream))
                 .lines().collect(Collectors.joining("\n"));

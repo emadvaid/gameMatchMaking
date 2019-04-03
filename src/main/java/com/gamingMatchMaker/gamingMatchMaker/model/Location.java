@@ -40,13 +40,16 @@ public class Location {
     }
 
     public Location(Location original) {
+        this.userRecSet = new HashSet<>();
+        if(original == null) {
+            return;
+        }
         this.zip = original.zip;
         this.city = original.city;
         this.state = original.state;
         this.lat = original.lat;
         this.lng = original.lng;
         this.locationString = original.locationString;
-        this.userRecSet = new HashSet<>();
     }
 
     public int getId() {

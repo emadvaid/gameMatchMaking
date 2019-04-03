@@ -28,9 +28,11 @@ public class RegistrationControllerTest extends com.gamingMatchMaker.gamingMatch
         // usually for testing read mock JSON's from a file
 
         String mockRequestJSON = readFileFromResources(
+                RegistrationController.class,
                 "registerUserSuccessRequest.json"
         );
         String mockResponseJSON = readFileFromResources(
+                RegistrationController.class,
                 "registerUserSuccessResponse.json"
         );
 

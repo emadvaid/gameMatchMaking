@@ -16,9 +16,11 @@ public class UserAuthControllerTest extends com.gamingMatchMaker.gamingMatchMake
         // usually for testing read mock JSON's from a file
 
         String mockRequestJSON = readFileFromResources(
+                UserAuthController.class,
                 "authUserSuccessRequest.json"
         );
         String mockResponseJSON = readFileFromResources(
+                UserAuthController.class,
                 "authUserSuccessResponse.json"
         );
 
