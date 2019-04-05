@@ -63,7 +63,7 @@ public class UserRec {
         this.last_name = detail.getLast_name();
         this.age = detail.getAge();
         this.is_active = true;
-        this.user_type = 1;
+        this.user_type = detail.getUser_type();
         // this.location = detail.getLocation();
         this.location = new Location(detail.getLocation());
     }
