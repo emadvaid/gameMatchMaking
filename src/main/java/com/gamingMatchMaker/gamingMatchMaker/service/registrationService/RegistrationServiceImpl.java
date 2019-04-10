@@ -48,7 +48,7 @@ public class RegistrationServiceImpl implements RegistrationService {
         if(newUserRecDetails.getEmail()== null || newUserRecDetails.getEmail().length()<1){
             throw new UserException("Email cannot be empty");
         }
-      
+
         //check for duplicate
         // check for empty location
         if(newUserRecDetails.getLocation()==null) {

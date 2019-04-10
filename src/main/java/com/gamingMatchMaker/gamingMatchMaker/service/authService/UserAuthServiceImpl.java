@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -37,14 +38,14 @@ public class UserAuthServiceImpl implements UserAuthService{
         }
 
         // try to find a userRec record for the given username
-        Optional<UserRec> userOpt = userDao.findByEmail(email);
+        Optional<List<UserRec>> userOpt = userDao.findByEmail(email);
 
         // fail if record not found
         if(!userOpt.isPresent()){
             throw new UserAuthenticationException("UserRec not found: username = " + email);
         }
 
-        UserRec userRec = userOpt.get();
+        UserRec userRec = (UserRec) userOpt.get();
 
         // fail if the passwords don't match
 

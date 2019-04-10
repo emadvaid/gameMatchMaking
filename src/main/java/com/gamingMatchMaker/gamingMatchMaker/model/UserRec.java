@@ -3,6 +3,7 @@ package com.gamingMatchMaker.gamingMatchMaker.model;
 import com.gamingMatchMaker.gamingMatchMaker.controller.authorization.UserDetail;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 
 @Entity
@@ -56,6 +57,21 @@ public class UserRec {
         this.location = location;
     }
 
+    public UserRec(int id, String email, String first_name, String last_name,
+                   String password, int age, boolean is_active,
+                   int user_type, Location location) {
+
+        this.id = id;
+        this.email = email;
+        this.first_name = first_name;
+        this.last_name = last_name;
+        this.password = password;
+        this.age = age;
+        this.is_active = is_active;
+        this.user_type = user_type;
+        this.location = location;
+    }
+
     public UserRec(UserDetail detail) {
         System.out.println("inside constructor, detail is " + detail);
         this.email = detail.getEmail();
@@ -66,6 +82,19 @@ public class UserRec {
         this.user_type = detail.getUser_type();
         // this.location = detail.getLocation();
         this.location = new Location(detail.getLocation());
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        UserRec userRec = (UserRec) o;
+        return Objects.equals(email, userRec.email);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(email);
     }
 
     public int getId() {

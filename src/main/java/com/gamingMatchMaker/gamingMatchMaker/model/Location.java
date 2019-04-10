@@ -29,7 +29,20 @@ public class Location {
         this.userRecSet = new HashSet<>();
     }
 
-    public Location(String zip, String city, String state, float lat, float lng, String locationString) {
+    public Location(String zip, String city, String state,
+                    float lat, float lng, String locationString) {
+        this.zip = zip;
+        this.city = city;
+        this.state = state;
+        this.lat = lat;
+        this.lng = lng;
+        this.locationString = locationString;
+        this.userRecSet = new HashSet<>();
+    }
+
+    public Location(int id, String zip, String city, String state,
+                    float lat, float lng, String locationString) {
+        this.id = id;
         this.zip = zip;
         this.city = city;
         this.state = state;
