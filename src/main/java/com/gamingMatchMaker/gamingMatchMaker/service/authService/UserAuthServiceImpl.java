@@ -38,7 +38,7 @@ public class UserAuthServiceImpl implements UserAuthService{
         }
 
         // try to find a userRec record for the given username
-        Optional<List<UserRec>> userOpt = userDao.findByEmail(email);
+        Optional<UserRec> userOpt = userDao.findByEmail(email);
 
         // fail if record not found
         if(!userOpt.isPresent()){

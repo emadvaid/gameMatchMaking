@@ -83,10 +83,10 @@ public abstract class ServiceTest {
 
     @Before
     public void setupUserRepositoryKnownUsersForFind() {
-        // create a list of test user findAll, FindById, findByXXX responses for testing
-        List<UserRec> usersIn90210 = Arrays.asList(USER1);
-        when(userDao.findByEmail("90210"))
-                .thenReturn(Optional.of(usersIn90210));
+//        // create a list of test user findAll, FindById, findByXXX responses for testing
+//        List<UserRec> usersIn90210 = Arrays.asList(USER1);
+//        when(userDao.findByEmail("90210"))
+//                .thenReturn(Optional.of(usersIn90210));
     }
 
     @Before
